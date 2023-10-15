@@ -5,8 +5,12 @@ import { fetchVideos } from "./api/youtube";
 import Card from "./components/card";
 import Filters from "./components/filters";
 import VideoList from "./components/videoList";
+import ChannelDetails from "./components/channelDetails";
+import { ToastContainer } from "react-toastify";
+import Spinner from "./components/spinner";
 
 const App: React.FC = () => {
+  const [isLoading, setLoading] = useState<Boolean>(true);
   const [videos, setVideos] = useState<Video[]>([]);
   const [filters, setFilters] = useState<FilterOptions>({
     sorting: 'relevance',
@@ -16,8 +20,10 @@ const App: React.FC = () => {
 
   useEffect(() => {
     const fetchLiveVideos = async (pageToken?: string) => {
+      setLoading(true)
       const response = await fetchVideos(filters, pageToken);
       setVideos(response);
+      setLoading(false)
     };
 
     fetchLiveVideos();
@@ -25,13 +31,18 @@ const App: React.FC = () => {
 
   return (
     <div className="md:px-20 md:py-10">
+      <ToastContainer />
     <Card>
-      Channel info
+      <ChannelDetails />
     </Card>
     <Card>
       <Filters filters={filters} setFilters={setFilters} />
       <hr className="my-4 "/>
-      <VideoList videos={videos} />
+      {isLoading ? (
+        <Spinner />
+      ) : (
+        <VideoList videos={videos} />
+      )}
     </Card>
     </div>
   );

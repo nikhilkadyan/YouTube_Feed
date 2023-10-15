@@ -32,6 +32,18 @@ const Filters: React.FC<FiltersProps> = ({ filters, setFilters }) => {
                     <option value="standard">Standard</option>
                 </select>
             </div>
+            <div className="">
+                <label className="inline-block text-sm font-semibold mb-2">Count:</label>
+                <select
+                    className="px-3 py-2 w-full border rounded"
+                    value={filters.limit}
+                    onChange={(e) => setFilters({ ...filters, limit: Number(e.target.value) })}
+                >
+                    <option value="6">6</option>
+                    <option value="18">18</option>
+                    <option value="36">36</option>
+                </select>
+            </div>
         </div>
     );
 };
