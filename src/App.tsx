@@ -14,7 +14,7 @@ const App: React.FC = () => {
   const [videos, setVideos] = useState<Video[]>([]);
   const [filters, setFilters] = useState<FilterOptions>({
     sorting: 'relevance',
-    videoType: 'standard',
+    videoType: 'live',
     limit: 6
   });
 
